@@ -1,0 +1,45 @@
+<h1>Hellooooo</h1>
+<input type="text" id="query" name="query" placeholder="query"><br><br>
+<input type="text" id="date" name="date" placeholder="date"><br><br>
+<button onclick="clickMe();">Click me</button>
+<br></br>
+<iframe width="420" height="315" id="output_vid" src=""></iframe>
+
+
+<script>
+    function clickMe() {
+        /*fetch("https://catfact.ninja/fact")
+        .then((response) => response.json())
+        .then((json) => {
+            console.log(json)
+            if(json["fact"]) {
+                alert(json["fact"])
+            }
+        });*/
+        const query = document.getElementById("query").value;
+        const date = document.getElementById("date").value;
+        fetch("/snippets/125/")
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json)
+                //alert(JSON.stringify(json))
+            });
+
+        fetch("/snippets/", {
+                method: "POST",
+                body: JSON.stringify({
+                    "query":query,
+                    "date":date
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json)
+                var output_vid = document.getElementById("output_vid")
+                output_vid.src = "https://www.youtube.com/embed/" + json["vid"]
+            });
+    }
+</script>

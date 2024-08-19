@@ -1,0 +1,16 @@
+<h1>Hellooooo</h1>
+
+<button onclick="clickMe();">Click me</button>
+
+<script>
+    function clickMe() {
+        fetch("https://catfact.ninja/fact")
+        .then((response) => response.json())
+        .then((json) => {
+            console.log(json)
+            if(json["fact"]) {
+                alert(json["fact"])
+            }
+        });
+    }
+</script>
