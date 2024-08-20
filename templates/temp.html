@@ -1,12 +1,83 @@
-<h1>Hellooooo</h1>
-<input type="text" id="query" name="query" placeholder="query"><br><br>
-<input type="text" id="date" name="date" placeholder="date"><br><br>
-<button onclick="clickMe();">Click me</button>
+<h1>Games</h1>
 <br></br>
 <iframe width="420" height="315" id="output_vid" src=""></iframe>
+<br></br>
+<div id="games"></div>
+<br></br>
+
 
 
 <script>
+    var games = [
+        {
+            "date": "08/19/2024",
+            "game": "Leicester vs Tottenham"
+        },
+        {
+            "date": "08/19/2024",
+            "game": "Villareal vs Atletico Madrid ESPN FC"
+        },
+        {
+            "date": "08/19/2024",
+            "game": "Juventus vs Como"
+        },        
+        {
+            "date": "08/18/2024",
+            "game": "Chelsea vs Manchester City NBC Sports"
+        },
+        {
+            "date": "08/18/2024",
+            "game": "Mallorca vs Real Madrid ESPN FC"
+        },
+        {
+            "date": "08/17/2024",
+            "game": "Arsenal vs Wolves"
+        },
+        {
+            "date": "08/17/2024",
+            "game": "Valencia vs Barcelona ESPN FC"
+        },
+        {
+            "date": "08/17/2024",
+            "game": "AC Milan vs Torino"
+        },
+        {
+            "date": "08/16/2024",
+            "game": "Manchester United vs Fulham"
+        },
+        {
+            "date": "08/16/2024",
+            "game": "Le Havre vs PSG"
+        },
+        {
+            "date": "08/03/2024",
+            "game": "Chelsea vs Manchester City Friendly"
+        },
+        {
+            "date": "06/01/2024",
+            "game": "Real Madrid vs Dortmund"
+        },
+    ]
+
+    for(let i = 0; i < games.length; i++) {
+        var new_button = document.createElement("button")
+        new_button.id = i
+        new_button.innerHTML = games[i]["game"] + " - " + games[i]["date"]
+        new_button.addEventListener("click", (e) => handleClick(e))
+        var gamesDiv = document.getElementById("games")
+        var br1 = document.createElement("br")
+        var br2 = document.createElement("br")
+        gamesDiv.appendChild(br1)
+        gamesDiv.appendChild(br2)
+        gamesDiv.appendChild(new_button)
+    }
+
+    function handleClick(e) {
+        var idx = e.srcElement.id
+        console.log(games[idx])
+        getVideo(games[idx]["game"], games[idx]["date"])
+    }
+
     function clickMe() {
         /*fetch("https://catfact.ninja/fact")
         .then((response) => response.json())
@@ -24,11 +95,13 @@
                 console.log(json)
                 //alert(JSON.stringify(json))
             });
+    }
 
+    function getVideo(game, date) {
         fetch("/snippets/", {
                 method: "POST",
                 body: JSON.stringify({
-                    "query":query,
+                    "query":game,
                     "date":date
                 }),
                 headers: {

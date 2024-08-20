@@ -36,8 +36,39 @@ def snippet_list(request):
             publishedBefore=year + "-" + month + "-" + day +"T23:59:00+00:00",
             q=query
         )
+
+        """request = youtube.search().list(
+            part="snippet",
+            maxResults=25,
+            q=query
+        )"""
+
+        #print(year, month, day)
+        #val = input()
+        """request = youtube.search().list(
+            part="snippet",
+            maxResults=25,
+            publishedAfter=year + "-" + month + "-" + day + "T00:00:00Z",
+            q=query
+        )"""
+        """request = youtube.search().list(
+            part="snippet",
+            maxResults=25,
+            publishedAfter="2024-08-19T00:00:00Z",
+            q="Atletico Madrid vs Villareal ESPN FC"
+        )"""
         # Query execution
         response = request.execute()
+
+        if len(response['items']) < 1:
+            print("Running request without date filter")
+            request = youtube.search().list(
+                part="snippet",
+                maxResults=25,
+                q=query
+            )
+            response = request.execute()
+
         # Print the results
         video_id = response['items'][0]['id']['videoId']
         url_prefix = "https://www.youtube.com/watch?v="
